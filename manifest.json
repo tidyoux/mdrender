@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Markdown 排版助手",
+  "version": "1.0",
+  "description": "将 Markdown 文本转换为精美的富文本格式，支持一键复制到微信公众号、知乎等平台",
+  "permissions": [
+    "activeTab",
+    "clipboardWrite"
+  ],
+  "action": {
+    "default_title": "Markdown 排版助手"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+} 
