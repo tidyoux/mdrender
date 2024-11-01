@@ -61,19 +61,20 @@ button:hover {
 #preview {
   flex: 1;
   overflow-y: auto;
-  padding: 2.5em 3em;
+  padding: 2em 2.5em;
   border: 1px solid #eef2f8;
   border-radius: 8px;
   background-color: #fff;
   font-family: "Noto Serif CJK SC", "Noto Serif SC", "Source Han Serif SC", "Source Han Serif", source-han-serif-sc, "PT Serif", "SongTi SC", "MicroSoft Yahei", Georgia, serif;
   font-size: 16px;
-  line-height: 1.9;
+  line-height: 2;
   color: #34495e;
   max-width: 100%;
   margin: 0 auto;
   box-shadow: 0 2px 12px rgba(138, 162, 211, 0.1);
   box-sizing: border-box;
   display: none;
+  letter-spacing: 0.01em;
 }
 
 #preview:not(:empty) {
@@ -101,16 +102,19 @@ button:hover {
 }
 
 #preview h1 {
-  font-size: 2.2em;
+  font-size: 2em;
   text-align: center;
-  border-bottom: 2px solid #eef2f8;
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: 0.5em;
+  color: var(--primary-color);
+  margin-bottom: 1.5em;
 }
 
 #preview h2 {
-  font-size: 1.8em;
-  border-bottom: 1px solid #eef2f8;
-  padding-bottom: 0.4em;
+  font-size: 1.5em;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.3em;
+  color: var(--primary-color);
 }
 
 #preview h3 {
@@ -131,16 +135,19 @@ button:hover {
 }
 
 #preview p {
-  margin: 1.8em 0;
-  line-height: 1.8;
+  margin: 1.5em 0;
+  line-height: 2;
+  color: var(--primary-color);
+  text-align: justify;
 }
 
 #preview blockquote {
   margin: 2em 0;
   padding: 1em 1.2em;
-  border-left: 4px solid var(--accent-color);
   background-color: var(--bg-quote);
+  border-left: 4px solid var(--accent-color);
   color: var(--secondary-color);
+  border-radius: 0 4px 4px 0;
 }
 
 #preview blockquote p {
@@ -270,8 +277,9 @@ button:hover {
 
 /* 强调样式 */
 #preview strong {
-  color: #5c6b89;
-  font-weight: 600;
+  color: #1a365d;  /* 保持深靛蓝色 */
+  font-weight: 800; /* 保持最粗的字重 */
+  padding: 0 0.1em; /* 保留一点水平内边距 */
 }
 
 #preview em {
@@ -399,14 +407,16 @@ button:hover {
 
 /* 修改主题颜色 */
 :root {
-  --primary-color: #5c6b89;      /* 主要文字颜色 */
-  --secondary-color: #8f9bba;    /* 次要文字颜色 */
-  --accent-color: #b4bed0;       /* 强调色 */
-  --link-color: #849fc4;         /* 链接颜色 */
-  --border-color: #eaeff8;       /* 边框颜色 */
-  --bg-light: #f7f9fc;          /* 浅色背景 */
-  --bg-quote: #f3f6fb;          /* 引用背景 */
-  --shadow-color: rgba(149, 157, 165, 0.1); /* 阴影颜色 */
+  --primary-color: #4a5568;      /* 更深沉的主要文字颜色 */
+  --secondary-color: #718096;    /* 更柔和的次要文字颜色 */
+  --accent-color: #a0aec0;       /* 更淡雅的强调色 */
+  --link-color: #63b3ed;         /* 更清新的链接颜色 */
+  --border-color: #e2e8f0;       /* 更柔和的边框颜色 */
+  --bg-light: #f7fafc;          /* 更清爽的浅色背景 */
+  --bg-quote: #edf2f7;          /* 更淡雅的引用背景 */
+  --shadow-color: rgba(160, 174, 192, 0.1); /* 更柔和的阴影 */
+  --code-bg: #2d3748;           /* 更柔和的代码块 */
+  --code-line-bg: #1a202c;      /* 更深邃的行号背景 */
 }
 
 /* 修改按钮样式 */
@@ -483,16 +493,55 @@ button:hover {
 
 /* 修改整体间距 */
 #preview {
-  padding: 2.5em 3em;
-  line-height: 1.9;
+  padding: 2em 2.5em;
+  line-height: 2;
+  letter-spacing: 0.01em;
 }
 
 #preview p {
-  margin: 1.8em 0;
+  margin: 1.5em 0;
+  line-height: 2;
+  color: var(--primary-color);
+  text-align: justify;
 }
 
 /* 修改图片样式 */
 #preview img {
   box-shadow: 0 4px 12px var(--shadow-color);
   margin: 2em auto;
+}
+
+#preview ul li {
+  margin: 0.5em 0;
+  color: var(--primary-color);
+}
+
+#preview ol li {
+  margin: 0.5em 0;
+  color: var(--primary-color);
+}
+
+/* 强调样式 */
+#preview strong {
+  color: #1a365d;  /* 保持深靛蓝色 */
+  font-weight: 800; /* 保持最粗的字重 */
+  padding: 0 0.1em; /* 保留一点水平内边距 */
+}
+
+/* 行内代码样式 */
+#preview :not(pre) > code {
+  color: #d53f8c;  /* 使用玫瑰红色调 */
+  background-color: #faf5ff;  /* 淡紫色背景 */
+  font-family: "JetBrains Mono", monospace;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.875em;
+  font-weight: 500;
+  border: 1px solid #f3e8ff;  /* 添加淡紫色边框 */
+}
+
+/* 斜体样式也适当调整 */
+#preview em {
+  color: #5a67d8;  /* 靛蓝色 */
+  font-style: italic;
 }
