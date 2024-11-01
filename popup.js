@@ -28,19 +28,10 @@ document.addEventListener('DOMContentLoaded', function() {
   renderer.code = function(code, language) {
     // 生成行号
     const lines = code.split('\n');
-    // 移除最后一个空行（如果存在）
     if (lines[lines.length - 1].trim() === '') {
       lines.pop();
     }
     
-    const lineNumbers = lines
-      .map((_, index) => `<span class="line-number">${index + 1}</span>`)
-      .join('');
-    
-    // 添加语言类名
-    const languageClass = language ? ` language-${language}` : '';
-    
-    // 使用 highlight.js 处理代码
     let highlightedCode;
     try {
       if (language && hljs.getLanguage(language)) {
@@ -55,13 +46,27 @@ document.addEventListener('DOMContentLoaded', function() {
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
     }
-    
-    return `<div class="code-block">
-              <div class="line-numbers">${lineNumbers}</div>
-              <div class="code-content">
-                <pre><code class="hljs${languageClass}">${highlightedCode}</code></pre>
-              </div>
-            </div>`;
+
+    // 使用 section 元素包裹，微信公众号对 section 支持较好
+    return `<section style="margin: 1em 0;">
+              <section style="display: flex; background-color: #282c34; border-radius: 8px; font-family: Consolas, monospace;">
+                <section style="background-color: #21252b; padding: 1em 0; min-width: 3em; text-align: right;">
+                  ${lines.map((_, i) => `<section style="color: #495162; font-size: 12px; line-height: 1.5; padding: 0 1em;">${i + 1}</section>`).join('')}
+                </section>
+                <section style="flex: 1; padding: 1em; overflow-x: auto;">
+                  <pre style="margin: 0; color: #abb2bf; font-size: 14px; line-height: 1.5;"><code>${highlightedCode}</code></pre>
+                </section>
+              </section>
+            </section>`;
+  };
+
+  // 自定义引用块渲染
+  renderer.blockquote = function(quote) {
+    return `<section style="margin: 1em 0;">
+              <section style="padding: 1em 1.2em; background-color: #f7fafc; border-left: 4px solid #a0aec0; color: #718096;">
+                ${quote}
+              </section>
+            </section>`;
   };
 
   marked.setOptions({ renderer });
@@ -85,21 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   copyBtn.addEventListener('click', async function() {
     try {
-      // 复制前移除行号
-      const previewContent = preview.cloneNode(true);
-      previewContent.querySelectorAll('.line-numbers').forEach(el => el.remove());
-      previewContent.querySelectorAll('.code-block').forEach(el => {
-        const codeContent = el.querySelector('.code-content');
-        if (codeContent) {
-          el.parentNode.replaceChild(codeContent, el);
-        }
-      });
-      
-      // 替换预览区域的内容
-      const originalContent = preview.innerHTML;
-      preview.innerHTML = previewContent.innerHTML;
-      
-      // 选中预览区域的内容
+      // 直接使用预览区域的内容
       const range = document.createRange();
       range.selectNodeContents(preview);
       const selection = window.getSelection();
@@ -109,8 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // 执行复制
       const successful = document.execCommand('copy');
       
-      // 恢复原始内容
-      preview.innerHTML = originalContent;
+      // 清理选择
       selection.removeAllRanges();
       
       if (successful) {
