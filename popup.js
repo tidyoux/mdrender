@@ -77,38 +77,54 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  copyBtn.addEventListener('click', function() {
-    const tempDiv = document.createElement('div');
-    tempDiv.contentEditable = true;
-    document.body.appendChild(tempDiv);
-    
-    // 复制前移除行号
-    const previewContent = preview.cloneNode(true);
-    previewContent.querySelectorAll('.line-numbers').forEach(el => el.remove());
-    previewContent.querySelectorAll('.code-block').forEach(el => {
-      const codeContent = el.querySelector('.code-content');
-      if (codeContent) {
-        el.parentNode.replaceChild(codeContent, el);
-      }
-    });
-    
-    tempDiv.innerHTML = previewContent.innerHTML;
-    
-    const range = document.createRange();
-    range.selectNodeContents(tempDiv);
-    const selection = window.getSelection();
-    selection.removeAllRanges();
-    selection.addRange(range);
-    
+  // 添加提示元素
+  const notification = document.createElement('div');
+  notification.className = 'notification';
+  notification.textContent = '已复制到剪贴板';
+  document.body.appendChild(notification);
+
+  copyBtn.addEventListener('click', async function() {
     try {
-      document.execCommand('copy');
-      alert('内容已复制到剪贴板！');
+      // 复制前移除行号
+      const previewContent = preview.cloneNode(true);
+      previewContent.querySelectorAll('.line-numbers').forEach(el => el.remove());
+      previewContent.querySelectorAll('.code-block').forEach(el => {
+        const codeContent = el.querySelector('.code-content');
+        if (codeContent) {
+          el.parentNode.replaceChild(codeContent, el);
+        }
+      });
+      
+      // 替换预览区域的内容
+      const originalContent = preview.innerHTML;
+      preview.innerHTML = previewContent.innerHTML;
+      
+      // 选中预览区域的内容
+      const range = document.createRange();
+      range.selectNodeContents(preview);
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+      
+      // 执行复制
+      const successful = document.execCommand('copy');
+      
+      // 恢复原始内容
+      preview.innerHTML = originalContent;
+      selection.removeAllRanges();
+      
+      if (successful) {
+        // 显示轻量提示
+        notification.classList.add('show');
+        setTimeout(() => {
+          notification.classList.remove('show');
+        }, 2000);
+      } else {
+        throw new Error('复制失败');
+      }
     } catch (err) {
       console.error('复制失败:', err);
       alert('复制失败，请重试');
     }
-    
-    document.body.removeChild(tempDiv);
-    selection.removeAllRanges();
   });
 }); 
