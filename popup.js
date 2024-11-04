@@ -24,14 +24,31 @@ document.addEventListener('DOMContentLoaded', function() {
   // 自定义渲染器
   const renderer = new marked.Renderer();
   
+  // 自定义标题渲染
+  renderer.heading = function(text, level) {
+    // 使用微信支持的样式
+    const fontSize = {
+      1: 'font-size: 24px; font-weight: bold; text-align: center; margin: 1em 0;',
+      2: 'font-size: 20px; font-weight: bold; border-bottom: 1px solid #ddd; padding-bottom: 0.3em; margin: 1em 0;',
+      3: 'font-size: 18px; font-weight: bold; padding-left: 10px; border-left: 4px solid #63b3ed; margin: 1em 0;',
+      4: 'font-size: 16px; font-weight: bold; margin: 1em 0; padding-left: 10px; position: relative;',
+      5: 'font-size: 15px; font-weight: bold; color: #666; margin: 1em 0; padding-left: 10px; position: relative;',
+      6: 'font-size: 14px; font-weight: bold; color: #666; margin: 1em 0; padding-left: 10px; font-style: italic;'
+    }[level];
+
+    // 为 h4 和 h5 添加特殊标记
+    let prefix = '';
+    if (level === 4) {
+      prefix = '<span style="color: #63b3ed; position: absolute; left: 0;">•</span>';
+    } else if (level === 5) {
+      prefix = '<span style="color: #a0aec0; position: absolute; left: 0;">◦</span>';
+    }
+
+    return `<h${level} style="${fontSize}">${prefix}${text}</h${level}>`;
+  };
+  
   // 自定义代码块渲染
   renderer.code = function(code, language) {
-    // 生成行号
-    const lines = code.split('\n');
-    if (lines[lines.length - 1].trim() === '') {
-      lines.pop();
-    }
-    
     let highlightedCode;
     try {
       if (language && hljs.getLanguage(language)) {
@@ -47,23 +64,17 @@ document.addEventListener('DOMContentLoaded', function() {
         .replace(/>/g, '&gt;');
     }
 
-    // 修改代码块的 HTML 结构
-    const lineNumbers = lines
-      .map((_, i) => `<div class="line-number">${i + 1}</div>`)
-      .join('');
-
-    return `<div class="code-block">
-              <div class="line-numbers">${lineNumbers}</div>
-              <div class="code-content">
-                <pre><code class="hljs${language ? ' language-' + language : ''}">${highlightedCode}</code></pre>
-              </div>
-            </div>`;
+    // 简化的代码块结构
+    return `<section style="margin: 0.5em 0;">
+              <section style="background-color: #282c34; padding: 0.8em; border-radius: 4px;">
+                <pre style="margin: 0; font-family: Consolas, monospace; font-size: 12px; color: #abb2bf; white-space: pre;">${highlightedCode}</pre>
+              </section>
+            </section>`;
   };
 
   // 自定义引用块渲染
   renderer.blockquote = function(quote) {
-    // 不再使用行内样式，让 CSS 文件控制样式
-    return `<blockquote>${quote}</blockquote>`;
+    return `<blockquote style="margin: 1em 0; padding: 0.8em 1em; background-color: #f7fafc; border-left: 4px solid #a0aec0; color: #718096;">${quote}</blockquote>`;
   };
 
   marked.setOptions({ renderer });
