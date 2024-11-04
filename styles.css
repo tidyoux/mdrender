@@ -102,36 +102,81 @@ button:hover {
 }
 
 #preview h1 {
-  font-size: 1.8em;
+  font-size: 2em;
   text-align: center;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 2px solid var(--border-color);
   padding-bottom: 0.4em;
   color: var(--primary-color);
-  margin-bottom: 0.8em;
+  margin: 1.2em 0 1em 0;
+  letter-spacing: 0.05em;
 }
 
 #preview h2 {
-  font-size: 1.5em;
+  font-size: 1.6em;
   border-bottom: 1px solid var(--border-color);
   padding-bottom: 0.3em;
+  padding-left: 0.2em;
   color: var(--primary-color);
+  margin: 1.2em 0 0.8em 0;
+  letter-spacing: 0.03em;
 }
 
 #preview h3 {
-  font-size: 1.4em;
+  font-size: 1.3em;
+  color: var(--primary-color);
+  margin: 1em 0 0.6em 0;
+  padding-left: 0.5em;
+  border-left: 4px solid var(--link-color);
+  letter-spacing: 0.02em;
 }
 
 #preview h4 {
   font-size: 1.2em;
+  color: var(--primary-color);
+  margin: 1em 0 0.5em 0;
+  padding-left: 1em;
+  position: relative;
+}
+
+#preview h4::before {
+  content: "•";
+  position: absolute;
+  left: 0.2em;
+  color: var(--link-color);
 }
 
 #preview h5 {
-  font-size: 1em;
+  font-size: 1.1em;
+  color: var(--secondary-color);
+  margin: 0.8em 0 0.4em 0;
+  padding-left: 1.2em;
+  font-weight: 600;
+  position: relative;
+}
+
+#preview h5::before {
+  content: "◦";
+  position: absolute;
+  left: 0.3em;
+  color: var(--accent-color);
 }
 
 #preview h6 {
-  font-size: 0.9em;
-  color: #8aa2d3;
+  font-size: 1em;
+  color: var(--secondary-color);
+  margin: 0.8em 0 0.4em 0;
+  padding-left: 1.4em;
+  font-weight: 500;
+  font-style: italic;
+  position: relative;
+}
+
+#preview h6::before {
+  content: "▪";
+  position: absolute;
+  left: 0.4em;
+  color: var(--accent-color);
+  font-style: normal;
 }
 
 #preview p {
@@ -191,19 +236,30 @@ button:hover {
 #preview ul,
 #preview ol {
   padding-left: 2em;
-  margin: 0.8em 0;
+  margin: 0.2em 0 0.8em 0;
 }
 
 #preview ul ul,
 #preview ul ol,
 #preview ol ol,
 #preview ol ul {
-  margin: 0.5em 0;
+  margin: 0.1em 0 0.4em 0;
 }
 
 #preview li {
-  line-height: 1.8;
-  margin: 0.4em 0;
+  line-height: 1.5;
+  margin: 0.1em 0;
+  color: var(--primary-color);
+}
+
+#preview li p {
+  margin: 0.2em 0;
+  line-height: 1.5;
+}
+
+#preview ul + p,
+#preview ol + p {
+  margin-top: 1.2em;
 }
 
 #preview table {
@@ -411,7 +467,7 @@ button:hover {
 /* 修改主题颜色 */
 :root {
   --primary-color: #4a5568;      /* 更深沉的主要文字颜色 */
-  --secondary-color: #718096;    /* 更柔和的次要文字颜色 */
+  --secondary-color: #718096;    /* 更柔的次要文字颜色 */
   --accent-color: #a0aec0;       /* 更淡雅的强调色 */
   --link-color: #63b3ed;         /* 更清新的链接颜色 */
   --border-color: #e2e8f0;       /* 更柔和的边框颜色 */
@@ -487,8 +543,52 @@ button:hover {
 }
 
 /* 修改列表样式 */
-#preview ul li::before {
-  color: var(--accent-color);
+#preview ul,
+#preview ol {
+  padding-left: 2em;
+  margin: 0.2em 0 0.8em 0;
+}
+
+#preview ul ul,
+#preview ul ol,
+#preview ol ol,
+#preview ol ul {
+  margin: 0.1em 0 0.4em 0;
+}
+
+#preview li {
+  line-height: 1.5;
+  margin: 0.1em 0;
+  color: var(--primary-color);
+}
+
+#preview li p {
+  margin: 0.2em 0;
+  line-height: 1.5;
+}
+
+/* 与前面元素的间距 */
+#preview h1 + ul,
+#preview h1 + ol,
+#preview h2 + ul,
+#preview h2 + ol,
+#preview h3 + ul,
+#preview h3 + ol,
+#preview h4 + ul,
+#preview h4 + ol,
+#preview h5 + ul,
+#preview h5 + ol,
+#preview h6 + ul,
+#preview h6 + ol,
+#preview p + ul,
+#preview p + ol {
+  margin-top: -0.3em;
+}
+
+/* 与后面元素的间距 */
+#preview ul + p,
+#preview ol + p {
+  margin-top: 1.2em;
 }
 
 /* 修改表格样式 */
