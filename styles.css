@@ -92,8 +92,8 @@ button:hover {
 #preview h4,
 #preview h5,
 #preview h6 {
-  margin-top: 2em;
-  margin-bottom: 1em;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
   font-weight: 600;
   line-height: 1.4;
   color: var(--primary-color);
@@ -102,12 +102,12 @@ button:hover {
 }
 
 #preview h1 {
-  font-size: 2em;
+  font-size: 1.8em;
   text-align: center;
   border-bottom: 1px solid var(--border-color);
-  padding-bottom: 0.5em;
+  padding-bottom: 0.4em;
   color: var(--primary-color);
-  margin-bottom: 1.5em;
+  margin-bottom: 0.8em;
 }
 
 #preview h2 {
@@ -135,15 +135,15 @@ button:hover {
 }
 
 #preview p {
-  margin: 1.5em 0;
-  line-height: 2;
+  margin: 0.6em 0;
+  line-height: 1.8;
   color: var(--primary-color);
   text-align: justify;
 }
 
 #preview blockquote {
-  margin: 2em 0;
-  padding: 1em 1.2em;
+  margin: 1.2em 0;
+  padding: 0;
   background-color: var(--bg-quote);
   border-left: 4px solid var(--accent-color);
   color: var(--secondary-color);
@@ -152,6 +152,8 @@ button:hover {
 
 #preview blockquote p {
   margin: 0;
+  padding: 0.8em 1em;
+  line-height: 1.6;
 }
 
 #preview code {
@@ -171,7 +173,7 @@ button:hover {
   line-height: 1.5;
   background-color: #f8f9fc;
   border-radius: 8px;
-  margin: 1.5em 0;
+  margin: 1.2em 0;
   border: 1px solid #eef2f8;
   overflow-x: auto;
   white-space: pre-wrap;
@@ -189,7 +191,7 @@ button:hover {
 #preview ul,
 #preview ol {
   padding-left: 2em;
-  margin: 1em 0;
+  margin: 0.8em 0;
 }
 
 #preview ul ul,
@@ -201,7 +203,7 @@ button:hover {
 
 #preview li {
   line-height: 1.8;
-  margin: 0.5em 0;
+  margin: 0.4em 0;
 }
 
 #preview table {
@@ -244,7 +246,7 @@ button:hover {
 #preview hr {
   height: 1px;
   padding: 0;
-  margin: 3em 0;
+  margin: 2em 0;
   background-color: var(--border-color);
   border: 0;
 }
@@ -337,9 +339,8 @@ button:hover {
   display: flex;
   background-color: #282c34;
   border-radius: 8px;
-  margin: 1.5em 0;
+  margin: 1.2em 0;
   font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
-  font-size: 14px;
   line-height: 1.5;
   overflow: hidden;
 }
@@ -348,7 +349,7 @@ button:hover {
 .line-numbers {
   display: flex;
   flex-direction: column;
-  padding: 1em 0;
+  padding: 0.8em 0;
   background-color: #21252b;
   border-right: 1px solid #181a1f;
   user-select: none;
@@ -361,13 +362,13 @@ button:hover {
   padding: 0 1em;
   color: #495162;
   font-size: 12px;
-  height: 1.5em;
-  line-height: 1.5em;
+  height: 20px;
+  line-height: 20px;
 }
 
 /* 代码内容 */
 .code-content {
-  padding: 1em;
+  padding: 0.8em;
   overflow-x: auto;
   flex: 1;
 }
@@ -379,8 +380,10 @@ button:hover {
 
 .code-content code {
   display: block;
-  line-height: 1.5em;
+  font-size: 12px;
+  line-height: 20px;
   padding: 0 !important;
+  margin: 0;
 }
 
 /* 代码高亮样式调整 */
@@ -394,7 +397,7 @@ button:hover {
 /* 调整预览区域的代码块样式 */
 #preview pre {
   padding: 0;
-  margin: 1.5em 0;
+  margin: 1.2em 0;
   background: none;
   border: none;
 }
@@ -444,11 +447,18 @@ button:hover {
 
 /* 修改引用块样式 */
 #preview blockquote {
-  border-left: 4px solid var(--accent-color);
+  margin: 1.2em 0;
+  padding: 0;
   background-color: var(--bg-quote);
+  border-left: 4px solid var(--accent-color);
   color: var(--secondary-color);
-  margin: 2em 0;
-  padding: 1em 1.2em;
+  border-radius: 0 4px 4px 0;
+}
+
+#preview blockquote p {
+  margin: 0;
+  padding: 0.8em 1em;
+  line-height: 1.6;
 }
 
 /* 修改链接样式 */
@@ -473,7 +483,7 @@ button:hover {
 #preview hr {
   height: 1px;
   background-color: var(--border-color);
-  margin: 3em 0;
+  margin: 2em 0;
 }
 
 /* 修改列表样式 */
@@ -499,8 +509,8 @@ button:hover {
 }
 
 #preview p {
-  margin: 1.5em 0;
-  line-height: 2;
+  margin: 1.2em 0;
+  line-height: 1.8;
   color: var(--primary-color);
   text-align: justify;
 }
@@ -512,7 +522,7 @@ button:hover {
 }
 
 #preview ul li {
-  margin: 0.5em 0;
+  margin: 0.4em 0;
   color: var(--primary-color);
 }
 

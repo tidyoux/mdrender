@@ -47,26 +47,23 @@ document.addEventListener('DOMContentLoaded', function() {
         .replace(/>/g, '&gt;');
     }
 
-    // 使用 section 元素包裹，微信公众号对 section 支持较好
-    return `<section style="margin: 1em 0;">
-              <section style="display: flex; background-color: #282c34; border-radius: 8px; font-family: Consolas, monospace;">
-                <section style="background-color: #21252b; padding: 1em 0; min-width: 3em; text-align: right;">
-                  ${lines.map((_, i) => `<section style="color: #495162; font-size: 12px; line-height: 1.5; padding: 0 1em;">${i + 1}</section>`).join('')}
-                </section>
-                <section style="flex: 1; padding: 1em; overflow-x: auto;">
-                  <pre style="margin: 0; color: #abb2bf; font-size: 14px; line-height: 1.5;"><code>${highlightedCode}</code></pre>
-                </section>
-              </section>
-            </section>`;
+    // 修改代码块的 HTML 结构
+    const lineNumbers = lines
+      .map((_, i) => `<div class="line-number">${i + 1}</div>`)
+      .join('');
+
+    return `<div class="code-block">
+              <div class="line-numbers">${lineNumbers}</div>
+              <div class="code-content">
+                <pre><code class="hljs${language ? ' language-' + language : ''}">${highlightedCode}</code></pre>
+              </div>
+            </div>`;
   };
 
   // 自定义引用块渲染
   renderer.blockquote = function(quote) {
-    return `<section style="margin: 1em 0;">
-              <section style="padding: 1em 1.2em; background-color: #f7fafc; border-left: 4px solid #a0aec0; color: #718096;">
-                ${quote}
-              </section>
-            </section>`;
+    // 不再使用行内样式，让 CSS 文件控制样式
+    return `<blockquote>${quote}</blockquote>`;
   };
 
   marked.setOptions({ renderer });
