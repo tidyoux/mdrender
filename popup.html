@@ -7,18 +7,26 @@
   <link rel="stylesheet" href="lib/atom-one-dark.min.css">
   <script src="lib/marked.min.js"></script>
   <script src="lib/highlight.min.js"></script>
+  <script src="lib/mermaid.min.js"></script>
 </head>
 <body>
   <div class="container">
     <div class="header">
       <h1>Markdown 排版助手</h1>
     </div>
-    <textarea id="markdown-input" placeholder="请输入 Markdown 内容..."></textarea>
-    <div class="button-group">
-      <button id="convert-btn">转换</button>
-      <button id="copy-btn">复制富文本</button>
+    <div class="content-wrapper">
+      <div class="input-section">
+        <textarea id="markdown-input" placeholder="请输入 Markdown 内容..."></textarea>
+        <div class="button-group">
+          <button id="convert-btn">转换</button>
+          <button id="copy-btn">复制富文本</button>
+        </div>
+      </div>
+      <div class="resizer"></div>
+      <div class="preview-section">
+        <div id="preview"></div>
+      </div>
     </div>
-    <div id="preview"></div>
   </div>
   <script src="popup.js"></script>
 </body>
